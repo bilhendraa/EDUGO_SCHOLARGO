@@ -694,7 +694,9 @@
                         <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.75rem;">
                             @foreach($recentScholarships as $item)
                                 <li style="font-size:0.8rem; border-bottom:1px solid #f3f4f6; padding-bottom:0.6rem;">
-                                    <div style="font-weight:600; color:var(--text-primary); margin-bottom:2px;">{{ $item->name }}</div>
+                                    <a href="{{ route('admin.scholarships.show', $item) }}" style="text-decoration:none; color:inherit;">
+                                        <div style="font-weight:600; color:var(--text-primary); margin-bottom:2px;" onmouseover="this.style.color='var(--brand)'" onmouseout="this.style.color='var(--text-primary)'">{{ $item->name }}</div>
+                                    </a>
                                     <div style="font-size:0.72rem; color:var(--text-secondary);">
                                         {{ $item->organizer_name }} &bull; <span style="color:var(--brand);">{{ $item->level }}</span>
                                     </div>

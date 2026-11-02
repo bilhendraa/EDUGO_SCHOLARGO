@@ -1,4 +1,3 @@
-
 <?php
 
 namespace App\Http\Controllers\Admin;
@@ -9,11 +8,16 @@ use App\Models\Scholarship;
 
 class ScholarshipController extends Controller
 {
-    // Tambahkan method ini untuk menampilkan daftar beasiswa:
     public function index()
     {
-        $scholarships = Scholarship::latest()->paginate(10); // atau Scholarship::all();
+        $scholarships = Scholarship::latest()->paginate(10);
+
         return view('admin.scholarships.index', compact('scholarships'));
+    }
+
+    public function show(Scholarship $scholarship)
+    {
+        return view('admin.scholarships.show', compact('scholarship'));
     }
 
     public function create()
@@ -33,7 +37,7 @@ class ScholarshipController extends Controller
         Scholarship::create($data);
 
         return redirect()
-            ->route('admin.scholarships.create')
+            ->route('admin.scholarships.index')
             ->with('success', 'Beasiswa berhasil ditambahkan.');
     }
 }

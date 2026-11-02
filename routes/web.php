@@ -9,5 +9,5 @@ Route::get('/', function () {
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('scholarships', ScholarshipController::class)
-        ->only(['index', 'create', 'store']); // <-- Ditambahkan 'index'
+        ->only(['index', 'create', 'store', 'show']);
 });

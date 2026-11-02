@@ -215,6 +215,29 @@
             border: 1px solid #e5e7eb;
         }
 
+        /* ── Detail Button ── */
+        .btn-detail {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-xs);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--brand);
+            background: var(--brand-light);
+            text-decoration: none;
+            transition: all var(--transition);
+        }
+        .btn-detail:hover {
+            background: var(--brand);
+            color: #fff;
+        }
+        .hover-title:hover {
+            color: var(--brand);
+            text-decoration: underline;
+        }
+
         /* ── Empty State ── */
         .empty-state {
             text-align: center;
@@ -278,6 +301,7 @@
                             <th>Kategori / Jenjang</th>
                             <th>Periode</th>
                             <th>Status</th>
+                            <th style="width: 90px; text-align: center;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -294,7 +318,9 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <strong>{{ $scholarship->name }}</strong>
+                                    <a href="{{ route('admin.scholarships.show', $scholarship) }}" style="text-decoration: none; color: inherit;" class="hover-title">
+                                        <strong>{{ $scholarship->name }}</strong>
+                                    </a>
                                 </td>
                                 <td>
                                     <span style="color: var(--text-secondary);">{{ $scholarship->organizer_name ?? '-' }}</span>
@@ -317,7 +343,7 @@
                                 <td>
                                     @php
                                         $statusClass = match(strtolower($scholarship->status ?? '')) {
-                                            'aktif', 'active', 'buka' => 'badge-status-aktif',
+                                            'aktif', 'active', 'published' => 'badge-status-aktif',
                                             'tutup', 'closed', 'berakhir' => 'badge-status-tutup',
                                             default => 'badge-status-draft',
                                         };
@@ -326,10 +352,15 @@
                                         {{ ucfirst($scholarship->status ?? 'Draft') }}
                                     </span>
                                 </td>
+                                <td style="text-align: center;">
+                                    <a href="{{ route('admin.scholarships.show', $scholarship) }}" class="btn-detail">
+                                        Detail
+                                    </a>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7">
+                                <td colspan="8">
                                     <div class="empty-state">
                                         <p>Belum ada data beasiswa yang ditambahkan.</p>
                                         <a href="{{ route('admin.scholarships.create') }}" class="btn btn-brand">
